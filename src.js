@@ -1,59 +1,68 @@
-class StackNode {
-    constructor(next, value) {
+var StackNode = /** @class */ (function () {
+    function StackNode(next, value) {
         this.next = next;
         this.value = value;
     }
-}
-class MaxSizeReachedException {
-}
-class StackIsEmptyException {
-}
-class Stack {
-    constructor() {
+    return StackNode;
+}());
+var MaxSizeReachedException = /** @class */ (function () {
+    function MaxSizeReachedException() {
+    }
+    return MaxSizeReachedException;
+}());
+var StackIsEmptyException = /** @class */ (function () {
+    function StackIsEmptyException() {
+    }
+    return StackIsEmptyException;
+}());
+var Stack = /** @class */ (function () {
+    function Stack() {
         this.count = 0;
     }
-    push(val) {
-        const node = new StackNode(this.currentNode, val);
+    Stack.prototype.push = function (val) {
+        var node = new StackNode(this.currentNode, val);
         this.currentNode = node;
         this.count++;
-    }
-    clear() {
+    };
+    Stack.prototype.clear = function () {
         this.count = 0;
         this.currentNode = undefined;
-    }
-    pop() {
+    };
+    Stack.prototype.pop = function () {
         if (!this.count)
             throw new StackIsEmptyException();
-        const cN = this.currentNode;
+        var cN = this.currentNode;
         this.currentNode = cN.next;
         this.count--;
         return cN.value;
-    }
-    peak() {
+    };
+    Stack.prototype.peak = function () {
         if (this.currentNode == undefined)
             throw new StackIsEmptyException();
         return this.currentNode.value;
-    }
-    getIsEmpty() {
+    };
+    Stack.prototype.getIsEmpty = function () {
         return !this.count;
-    }
-}
-const opens = ["[", "(", "{"];
-const closes = ["]", ")", "}"];
-const s = new Stack();
+    };
+    return Stack;
+}());
+var opens = ["[", "(", "{"];
+var closes = ["]", ")", "}"];
+var s = new Stack();
 function checkIsStringValid(str) {
     s.clear();
-    for (const c of str) {
-        const i = opens.indexOf(c);
+    for (var _i = 0, str_1 = str; _i < str_1.length; _i++) {
+        var c = str_1[_i];
+        var i = opens.indexOf(c);
         if (i != -1) {
             s.push(i);
             continue;
         }
-        const eI = closes.indexOf(c);
+        var eI = closes.indexOf(c);
         if (eI != -1) {
             if (s.getIsEmpty())
                 return false;
-            const inStack = s.pop();
+            var inStack = s.pop();
             if (inStack == eI) {
             }
             else {
@@ -63,6 +72,7 @@ function checkIsStringValid(str) {
     }
     return s.getIsEmpty();
 }
-for (const s of ["((sss)", "())", ")ee", "(", "({)}", "[{{}}()]"]) {
-    console.log(`For '${s}' got ${checkIsStringValid(s)}`);
+for (var _i = 0, _a = ["((sss)", "())", ")ee", "(", "({)}", "[{{}}()]"]; _i < _a.length; _i++) {
+    var s_1 = _a[_i];
+    console.log("For '" + s_1 + "' got " + checkIsStringValid(s_1));
 }

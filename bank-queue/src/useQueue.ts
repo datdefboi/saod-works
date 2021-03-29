@@ -10,7 +10,6 @@ class StackNode<T>{
 class MaxSizeReachedException { }
 class StackIsEmptyException { }
 
-
 class Queue<T> implements Iterable<T> {
     head: StackNode<T> | undefined
     tall: StackNode<T> | undefined
